@@ -16,7 +16,7 @@ Before I began, I ensured I had the following in place:
 3. Created a new hosted zone for my domain, mydomain.com.
 4. Noted the nameservers provided by AWS for my hosted zone.
 
-<span>![</span><span></span><span>]</span><span>(</span><span>(assets/1.1.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/1.1.png)</span><span>)</span>
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/1.2.png)</span><span>)</span>
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/1.3.png)</span><span>)</span>
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/1.4.png)</span><span>)</span>
@@ -31,19 +31,19 @@ Before I began, I ensured I had the following in place:
 5. Configured security groups to allow SSH (port 22) and HTTP/HTTPS (ports 80 and 443) access.
 6. Launched the instance and associated it with the key pair I created.
 
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/2.1.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/2.2.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/2.3.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/2.4.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/2.5.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.1.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.2.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.3.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.4.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.5.png)</span><span>)</span>
 
 ## Step 3: Allocating and Associating an Elastic IP
 
 1. In the EC2 Dashboard, I navigated to "Elastic IPs" for allocate a new Elastic IP address.
 2. Selected the Elastic IP and associated it with my EC2 instance.
 
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/3.1.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/3.2.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/3.1.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/3.2.png)</span><span>)</span>
 
 ## Step 4: Installing CyberPanel on Ubuntu Server
 
@@ -59,20 +59,20 @@ Before I began, I ensured I had the following in place:
    https://community.cyberpanel.net/docs?topic=82)
 5. Once CyberPanel was installed, I accessed the web control panel by visiting `http://<Your-EC2-Public-IP>:8090` in my web browser.
 
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/4.1.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/4.2.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/4.3.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/4.4.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/4.5.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/4.1.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/4.2.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/4.3.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/4.4.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/4.5.png)</span><span>)</span>
 
 ## Step 5: Setting Up DNS on CyberPanel for mydomain.com
 
 1. In the CyberPanel control panel, I went to "Websites" and created a new website for mydomain.com.
 2. Added the DNS records for my domain pointing to my EC2 instance's Elastic IP address.
 
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/5.1.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/5.2.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/5.3.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/5.1.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/5.2.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/5.3.png)</span><span>)</span>
 
 ## Step 6: Installing WordPress
 
@@ -87,10 +87,10 @@ Before I began, I ensured I had the following in place:
 1. After installing WordPress, I customized my website by adding themes, plugins, and content.
 2. Accessed my website by visiting `http://mydomain.com` in a web browser.
 
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/6.1.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/6.2.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/6.3.png)</span><span>)</span>
-<span>![</span><span>Screenshot</span><span>]</span><span>(</span><span>![Screenshot](assets/6.4.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/6.1.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/6.2.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/6.3.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/6.4.png)</span><span>)</span>
 
 I successfully deployed the WordPress website for mydomain.com on AWS, and it was accessible on the internet. Regular updates to the server and WordPress were crucial to maintaining the site's security and keeping it up-to-date.
 
