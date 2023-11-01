@@ -16,7 +16,7 @@ Before I began, I ensured I had the following in place:
 3. Created a new hosted zone for my domain, mydomain.com.
 4. Noted the nameservers provided by AWS for my hosted zone.
 
-<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/1.1.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>(assets/1.1.png)</span><span>)</span>
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/1.2.png)</span><span>)</span>
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/1.3.png)</span><span>)</span>
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/1.4.png)</span><span>)</span>
