@@ -164,7 +164,7 @@ pipeline {
     agent any
         stages {
             /*This stage build*/
-            stage('build') {
+            stage('Build') {
                 steps {
                     sh 'echo "Hello World"'
                     sh ''' 
