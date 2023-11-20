@@ -161,35 +161,36 @@ Connect the Jenkins with AWS
 ```bash
 
 pipeline {
-    agent any
-        stages {
-            /*This stage build*/
-            stage('Build') {
-                steps {
-                    sh 'echo "Hello World"'
-                    sh ''' 
-                       echo "multiple shell steps works too" 
-                       ls -lah
-                    '''
-                }
-            }
-            /*This stage upload files to Aws*/
-            stage('Upload to Aws') {
-                steps { /*Write your own Ec2 region, your pipeline ID on credentials */
-                    withAWS(region:'us-east-1', credentials:'jenkins-user-credentials-for-aws-s3') {
-                        sh 'echo "Uploading content with AWS credentials"'
+     agent any
+     stages {
+         stage('Build') {
+             steps {
+                 sh 'echo "Hello World"'
+                 sh '''
+                     echo "Multiline shell steps works too"
+                     ls -lah
+                 '''
+             }
+         }      
+         stage('Upload to AWS') {
+              steps {
+                  /*Write your own Ec2 region, your pipeline ID on credentials */
+                  withAWS(region:'us-east-1',credentials:'jenkins-user-credentials-for-aws-s3') {
+                  sh 'echo "Uploading content with AWS creds"'
                         /*Write your index.html of your website and your custom domain registered so that the traffic can be redirected to the s3 bucket*/
                         s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'assets', bucket:'veggycommons.com')
                         s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'css', bucket:'veggycommons.com')
                         s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'js', bucket:'veggycommons.com')
-                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'error.html', bucket:'veggycommons.com')
+                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'404.html', bucket:'veggycommons.com')
                         s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'veggycommons.com')
-
-                    }
-                }
-            }
-        }
+                       
+                     
+                  }
+              }
+         }
+     }
 }
+
 
 
 ```
