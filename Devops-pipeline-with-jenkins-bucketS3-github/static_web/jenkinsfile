@@ -11,16 +11,12 @@ pipeline {
              }
          }      
          stage('Upload to AWS') {
-              steps {
-                  // Write your own Ec2 region, your pipeline ID on credentials
-                  withAWS(region:'us-east-1', credentials:'jenkins-user-credentials-for-aws-s3') {
-                  sh 'echo "Uploading content with AWS credentials"'
-                        // Write your index.html of your website and your custom domain registered so that the traffic can be redirected to the s3 bucket
-                        s3Upload file: 'index.html', bucket: 'veggycommons.com'
-                  
-                       
-                     
-                  }
+              steps{
+              sh 'aws s3 cp static_web/index.html s3://veggycommons.com'
+              sh 'aws s3api put-object-acl --bucket veggycommons.com --key index.html --acl public-read'
+              sh 'aws s3 cp static_web/error.html s3://veggycommons.com'
+              sh 'aws s3api put-object-acl --bucket veggycommons.com --key error.html --acl public-read'
+            }
               }
          }
      }
