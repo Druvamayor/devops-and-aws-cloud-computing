@@ -174,13 +174,15 @@ pipeline {
          }      
          stage('Upload to AWS') {
               steps {
-                  /*Write your own Ec2 region, your pipeline ID on credentials */
+                  # Write your own Ec2 region, your pipeline ID on credentials
                   withAWS(region:'us-east-1',credentials:'jenkins-user-credentials-for-aws-s3') {
                   sh 'echo "Uploading content with AWS creds"'
-                        /*Write your index.html of your website and your custom domain registered so that the traffic can be redirected to the s3 bucket*/
-                        sh 'aws s3 cp static_web/index.html s3://<veggycommons.com>'
-                        sh 'aws s3 cp static_web/index.html s3://<veggycommons.com>'
-                       
+                        # Write your index.html of your website and your custom domain registered so that the traffic can be redirected to the s3 bucket
+                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'assets', bucket:'veggycommons.com')
+                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'css', bucket:'veggycommons.com')
+                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'js', bucket:'veggycommons.com')
+                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'404.html', bucket:'veggycommons.com')
+                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'veggycommons.com')
                        
                      
                   }
