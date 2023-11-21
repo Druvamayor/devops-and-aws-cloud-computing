@@ -13,9 +13,7 @@ pipeline {
          stage('Upload to AWS') {
               steps{
               sh 'aws s3 cp static_web/index.html s3://veggycommons.com'
-              sh 'aws s3api put-object-acl --bucket veggycommons.com --key index.html --acl public-read'
               sh 'aws s3 cp static_web/error.html s3://veggycommons.com'
-              sh 'aws s3api put-object-acl --bucket veggycommons.com --key error.html --acl public-read'
             }
               }
          }
