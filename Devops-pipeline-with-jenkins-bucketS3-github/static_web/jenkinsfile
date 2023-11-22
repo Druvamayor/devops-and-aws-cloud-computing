@@ -1,24 +1,32 @@
 pipeline {
-     agent any
-     stages {
-         stage('Build') {
-             steps {
-                 sh 'echo "Hello World"'
-                 sh '''
-                     echo "Multiline shell steps works too"
-                     ls -lah
-                 '''
-             }
-         }      
-         stage('Upload to AWS') {
-              steps {
-                  withAWS(region:'us-east-1',credentials:'staticwebcredentials') {
-                  sh 'echo "Uploading content with AWS creds"'
-                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'veggycommons.com')
-                     
-                  }
-              }
-         }
-     }
-}
+    agent any 
 
+     environment {
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+    }      
+
+    stages {
+        stage('Build') {
+            // build stage
+        }
+        stage('Test') {
+           // test stage
+        }
+        stage('Publish') {
+            steps {
+                sh './mvnw package'
+                // bat '.\mvnw package'
+            }
+            post {
+                success {
+                    archiveArtifacts 'target/*.html'
+                    sh 'aws configure set region us-east-1'
+                    sh 'aws s3 cp ./index.html s3://veggycommon.com/index.html'
+                    // bat 'aws configure set region us-east-1'
+                    // bat 'aws s3 cp ./target/calculator-0.0.1-SNAPSHOT.jar s3://YOUR-BUCKET-NAME/calculator.jar'
+                }
+            }
+        }
+    }
+}
