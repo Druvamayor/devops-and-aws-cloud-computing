@@ -161,35 +161,41 @@ Connect the Jenkins with AWS
 ```bash
 
 pipeline {
-     agent any
-     stages {
-         stage('Build') {
-             steps {
-                 sh 'echo "Hello World"'
-                 sh '''
-                     echo "Multiline shell steps works too"
-                     ls -lah
-                 '''
-             }
-         }      
-         stage('Upload to AWS') {
-              steps {
-                  # Write your own Ec2 region, your pipeline ID on credentials
-                  withAWS(region:'us-east-1', credentials:'jenkins-user-credentials-for-aws-s3') {
-                  sh 'echo "Uploading content with AWS credentials"'
-                        # Write your index.html of your website and your custom domain registered so that the traffic can be redirected to the s3 bucket
-                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'veggycommons.com')
-                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'404.html', bucket:'veggycommons.com')
-                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'css', bucket:'veggycommons.com')
-                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'js', bucket:'veggycommons.com')
-                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'assets', bucket:'veggycommons.com')
+    agent any
 
+    environment {
+        # Define AWS credentials from Jenkins credentials store
+        AWS_DEFAULT_REGION = 'your-aws-region'
+        AWS_ACCESS_KEY_ID = credentials('your-aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('your-aws-secret-access-key')
+    }
 
-                     
-                  }
-              }
-         }
-     }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                # Checkout the GitHub repository containing the HTML website
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+
+        stage('Deploy to AWS S3') {
+            steps {
+                # Use the AWS Steps Plugin to publish to S3
+                withAWS(region: AWS_DEFAULT_REGION, credentials: 'aws-credentials') {
+                    s3Upload(bucket: 'your-s3-bucket-name', path: 'path/to/your/html/files/*')
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Website deployed successfully to AWS S3!'
+        }
+        failure {
+            echo 'Failed to deploy website to AWS S3'
+        }
+    }
 }
 
 
