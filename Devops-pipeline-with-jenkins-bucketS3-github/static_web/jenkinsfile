@@ -9,7 +9,7 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Clone Repository to Jenkins Workspace') {
             steps {
                 // Checkout the GitHub repository containing the HTML website
                 git 'https://github.com/Druvamayor/aws-projects.git'
