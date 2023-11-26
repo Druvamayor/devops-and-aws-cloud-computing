@@ -1,7 +1,7 @@
 
 ---
 
-# Building a DevOps Pipeline with Jenkins, Aws Ec2, Aws S3 for deploy a website from GitHub Repository
+# Deploy a Web Static to Aws Bucket from Github Repository Commit Pushed
 
 ## Problem
 
@@ -154,6 +154,13 @@ Connect the Jenkins with AWS
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/10.1.png)</span><span>)</span>
 
+- Create a token on Github for to be used for Jenkins job. 
+  Follow this link for do it and paste it as the screenshot show it: 
+  https://docs.github.com/en/enterprise-server@3.6/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token
+
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/10.2.png)</span><span>)</span>
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/10.3.png)</span><span>)</span>
+
 #### Step 11: Define the JenkinsFile File on Your GitHub Repository
 
 - Define stages on jenkinsFile file of your reository for building, testing, and deploying the static web.
@@ -214,14 +221,14 @@ pipeline {
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/12.2.png)</span><span>)</span>
 
-- Verify the deployment of your website your domain (In my case vwggycommon.com).
+- Verify the deployment of your website on your domain (In my case veggycommon.com).
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/12.3.png)</span><span>)</span>
 
 
 
-Congratulations! You've successfully set up a basic DevOps pipeline using AWS and Jenkins. 
-Whenever I update my code, I'll initiate the build process in Jenkins to deploy the changes. This action can also be automated, triggering the deployment whenever new code is pushed or changes are made.
+Congratulations! You've successfully set up a DevOps pipeline using AWS S3 Bucket, GitHub and Jenkins. 
+This action is automated, triggering the deployment whenever new code or commit is pushed or any changes are made.
 
 This pipeline can serve as a foundation for expanding your DevOps practices, incorporating additional tools, and automating more aspects of your development lifecycle.
 
