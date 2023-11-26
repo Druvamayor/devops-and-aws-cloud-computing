@@ -1,13 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Define AWS credentials from Jenkins credentials store
-        AWS_DEFAULT_REGION = 'us-east-1'
-        AWS_ACCESS_KEY_ID = credentials('AKIATSOC6NCRRFPSFYGT')
-        AWS_SECRET_ACCESS_KEY = credentials('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')
-    }
-
     stages {
         stage('Clone Repository to Jenkins Workspace') {
             steps {
