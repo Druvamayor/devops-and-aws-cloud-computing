@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Use the AWS Steps Plugin to publish to S3
               
-                sh "aws s3 cp -r ../../aws-projects/Devops-pipeline-with-jenkins-bucketS3-github/static_web/* s3://veggycommons.com"
+                sh "aws s3 cp -r ../../aws-projects/Devops-pipeline-with-jenkins-bucketS3-github/static_web s3://veggycommons.com"
                 //withAWS(credentials: 'jenkins-user-credentials-for-aws-s3', region: 'us-east-1') {
                 //s3Upload(file:'static_web', bucket:'veggycommons.com', path:'../../aws-projects/Devops-pipeline-with-jenkins-bucketS3-github/static_web/')
                 //sh "aws s3 cp ../../aws-projects/Devops-pipeline-with-jenkins-bucketS3-github/static_web/index.html s3://veggycommons.com"
