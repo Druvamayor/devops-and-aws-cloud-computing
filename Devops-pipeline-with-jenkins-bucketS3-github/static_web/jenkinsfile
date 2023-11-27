@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository to Jenkins Workspace') {
             steps {
                 // Checkout the GitHub repository containing the HTML website
-                sh "git 'https://github.com/Druvamayor/aws-projects.git'"
+                git branch: 'main', url: 'https://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@github.com/Druvamayor/aws-projects.git'
             }
         }
 
