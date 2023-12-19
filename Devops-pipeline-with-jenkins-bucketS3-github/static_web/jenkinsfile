@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label 'agentlinux'}
 
     stages {
         stage('Deploy to AWS S3 bucket') {
