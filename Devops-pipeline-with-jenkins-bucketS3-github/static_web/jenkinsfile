@@ -7,8 +7,8 @@ pipeline {
                 // Use the AWS Steps Plugin to publish to S3
               
                 withAWS(credentials: 'jenkins-user-credentials-for-aws-s3', region: 'us-east-1') {
-                s3Upload acl: 'Private', bucket: 'veggycommons.com', cacheControl: '', excludePathPattern: '', file: '**/*', includePathPattern: '', metadatas: [''], path: 'veggycommons.com/', redirectLocation: '', sseAlgorithm: '', tags: '', text: '', workingDir: ''
-                
+                s3Upload acl: 'Private', bucket: 'veggycommons.com', cacheControl: '', excludePathPattern: '', file: '**/*', metadatas: [''], path: 'veggycommons.com/', redirectLocation: '', sseAlgorithm: '', tags: '', text: '', workingDir: ''
+
                 }
             }
         }
