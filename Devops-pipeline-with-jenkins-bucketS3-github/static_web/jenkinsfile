@@ -6,7 +6,7 @@ pipeline {
             steps {             
                 withAWS(region:'us-east-1', credentials:'jenkins-user-credentials-for-aws-s3') {
                     sh 'echo "Uploading content with AWS credentials"'
-                    s3Upload acl: 'Private', bucket: 'veggycommons.com', cacheControl: '', excludePathPattern: '', file: 'hello.txt', includePathPattern: '', metadatas: [''], redirectLocation: '', sseAlgorithm: '', tags: '', text: '', workingDir: ''
+                    s3Upload acl: 'PublicReadWrite', bucket: 'veggycommons.com', cacheControl: '', excludePathPattern: '', file: 'hello.txt', includePathPattern: '', metadatas: [''], path: 'veggycommons.com/', redirectLocation: '', sseAlgorithm: '', tags: '', text: '', workingDir: ''
                   }
         }
     }
