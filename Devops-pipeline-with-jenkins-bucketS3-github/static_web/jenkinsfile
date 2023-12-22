@@ -6,7 +6,7 @@ pipeline {
             steps {             
                 withAWS(credentials: 'jenkins-user-credentials-for-aws-s3', region: 'us-east-1'){
                     sh 'echo "Hello DevOps" > hello.txt'
-                    s3Upload (acl: 'Private' , bucket: 'veggycommons' , file: 'hello.txt')
+                    s3Upload (acl: 'PublicReadWrite' , bucket: 'veggycommons.com' , file: 'hello.txt')
                     //s3Download(file:'downloaded.txt', bucket:'your-bucket-name', path:'hello.txt',force:true) 
                     //sh "cat downloaded.txt"
 
