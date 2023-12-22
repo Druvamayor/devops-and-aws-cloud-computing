@@ -2,15 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Testing Aws credentials') {
+        stage('Upload to AWS') {
             steps {             
-                withAWS(credentials: 'jenkins-user-credentials-for-aws-s3', region: 'us-east-1'){
-                    sh 'echo "Hello DevOps" > hello.txt'
-                    s3Upload (acl: 'Private' , bucket: 'testveggy' , file: 'hello.txt')
-                    //s3Download(file:'downloaded.txt', bucket:'your-bucket-name', path:'hello.txt',force:true) 
-                    //sh "cat downloaded.txt"
-
-                }
+                withAWS(region:'us-east-1', credentials:'jenkins-user-credentials-for-aws-s3') {
+                  sh 'echo "Uploading content with AWS credentials"'
+                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'hello.txt', bucket:'veggycommons.com')
+                  }
         }
     }
 
