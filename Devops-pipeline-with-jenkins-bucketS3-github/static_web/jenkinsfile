@@ -1,22 +1,14 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Upload to AWS') {
-            steps {             
-                withAWS(region:'us-east-1', credentials:'jenkins-user-credentials-for-aws-s3') {
-                  sh 'echo "Uploading content with AWS credentials"'
-                  s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'hello.txt', bucket:'veggycommons.com')
-                  }
+    stages{
+        stage('deploy to S3'){
+            steps{
+                sh 'aws s3 cp test/hello.txt s3://veggycommons.com'
+                //sh 'aws s3api put-object-acl --bucket mys3website-ac --key index.html --acl public-read'
+                //sh 'aws s3 cp public/error.html s3://mys3website-ac'
+                //sh 'aws s3api put-object-acl --bucket mys3website-ac --key error.html --acl public-read'
+            }
         }
     }
-
-    post {
-        success {
-            echo 'Website deployed successfully to AWS S3!'
-        }
-        failure {
-            echo 'Failed to deploy website to AWS S3'
-        }
-    }
-}
+   
