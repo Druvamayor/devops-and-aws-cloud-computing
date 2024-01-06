@@ -244,6 +244,8 @@ This pipeline can serve as a foundation for expanding your DevOps practices, inc
 
 Several factors can lead to failures when uploading files from Jenkins to an AWS S3 bucket:
 
+Restriction on port 8080: This port must be accessible from anywhere ips (access from anywhere is not recommended for production). Github webhook must to find the url where Jenkins is istalled and copy the repository changes to Jenkins Workspace folder.
+
 Incorrect Credentials: Ensure that the AWS credentials used in Jenkins have the necessary permissions to access the S3 bucket. Double-check the Access Key ID and Secret Access Key.
 
 Bucket or Object Permissions: Check if the bucket policies or object permissions might be preventing uploads. Verify that the Jenkins process has the necessary write permissions on the S3 bucket.
@@ -260,7 +262,6 @@ Storage Class and Lifecycle Policies: If you've set specific storage classes or 
 
 AWS Service Outages: Sometimes, AWS services might face temporary outages or issues. Checking AWS status pages can confirm if there are ongoing problems with the S3 service.
 
-Restriction on port 8080: This port must be accessible from anywhere ips (access from anywhere is not recommended for production).
 
 To troubleshoot, you can check Jenkins logs for error messages or enable verbose logging to get more detailed information about the upload failures. Additionally, testing the upload process manually outside of Jenkins can help isolate whether the issue is specific to Jenkins or a broader problem.
 
