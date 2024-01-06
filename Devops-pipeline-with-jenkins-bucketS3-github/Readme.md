@@ -33,10 +33,15 @@ If you don't have an AWS account, sign up for the AWS Free Tier. This tier provi
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.2.png)</span><span>)</span>
 
-- Configure security groups to allow inbound traffic for protocol HTTP from Anywhere on port 8080 and enable SSH.
-  Jenkins listen throught of this port.
+- Configure security groups to allow inbound traffic from Anywhere on port 80 or also called protocol HTTP.
+  Enable SSH for install Jenkins via Putty (you can use your favorite terminal emulator application).
 
-<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.3.png)</span><span>)</span>
+  <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.3.png)</span><span>)</span>
+
+  When you launch your ec2 instance, go to EC2 > Security Groups > your security group link > Edit inbound rules
+  Jenkins listen throught the port 8080. Enable it and check other ports are enabled as show the following screenshoot.
+
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.3.1.png)</span><span>)</span>
 
 - Make sure the IAM user has the admin permissions. Otherwise create a group with policy(This policy should permit the ec2 instance perform all actions on s3) and then attach it to the IAM user.
 
