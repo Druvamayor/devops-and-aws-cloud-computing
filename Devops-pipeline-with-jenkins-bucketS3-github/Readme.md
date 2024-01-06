@@ -9,7 +9,7 @@ In the world of software development, ensuring smooth and efficient collaboratio
 
 ## Solution
 
-In this tutorial, we'll create a basic DevOps pipeline using AWS Free Tier services and the open-source tool Jenkins. This pipeline will automate the process of building, testing, and deploying a sample application.
+In this tutorial, we'll create a basic DevOps pipeline using AWS Free Tier services and the open-source tool Jenkins. This pipeline will automate the process of building and deploying a static web from a Github commit pushed.
 
 ## Pipeline Process
 
@@ -33,7 +33,7 @@ If you don't have an AWS account, sign up for the AWS Free Tier. This tier provi
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.2.png)</span><span>)</span>
 
-- Configure security groups to allow inbound traffic on port 8080 for Jenkins and enable SSH.
+- Configure security groups to allow inbound traffic from Anywhere on port 8080 for Jenkins and enable SSH.
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.3.png)</span><span>)</span>
 
@@ -114,11 +114,17 @@ If you don't have an AWS account, sign up for the AWS Free Tier. This tier provi
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/5.5.png)</span><span>)</span>
 
-#### Step 6: Create a Github Repository and Clone it on Your Local Machine
+#### Step 6: Create a Github Repository, Clone it on Your Local Machine and configure Jenkins with Github
 
 - Create a Github repository called "devops" (or the name you want) wich contains a folder called "jobs"
   and inside this create a file called Dockerfile, a simple static web file (.html) and a jenkinsfile. You can use my Github repository
   and study the code structure inside of each file.
+
+- Configure Jenkins with Github using Github webhooks
+  Link about how to do it: https://www.cprime.com/resources/blog/how-to-integrate-jenkins-github/
+  If the link above fails, you can find information on Google easily.
+
+  Thanks to webhook, Jenkins build will be triggered automatically when a new changes push in the repository. 
 
 #### Step 7: Setup S3 Bucket
 
@@ -163,48 +169,34 @@ Connect the Jenkins with AWS
 
 #### Step 11: Define the JenkinsFile File on Your GitHub Repository
 
-- Define stages on jenkinsFile file of your reository for building, testing, and deploying the static web.
+- Define stages on jenkinsFile file of your reository. For this purpouse I have two stages for building and deploying the    
+  static web. (Build and Ulopad to AWS stages)
 
 ```bash
 
 pipeline {
-    agent any
-
-    environment {
-        # Define AWS credentials from Jenkins credentials store
-        AWS_DEFAULT_REGION = 'your-aws-region'
-        AWS_ACCESS_KEY_ID = credentials('your-aws-access-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('your-aws-secret-access-key')
-    }
-
-    stages {
-        stage('Clone Repository') {
-            steps {
-                # Checkout the GitHub repository containing the HTML website
-                git 'https://github.com/your-username/your-repo.git'
-            }
-        }
-
-        stage('Deploy to AWS S3') {
-            steps {
-                # Use the AWS Steps Plugin to publish to S3
-                withAWS(region: AWS_DEFAULT_REGION, credentials: 'aws-credentials') {
-                    s3Upload(bucket: 'your-s3-bucket-name', path: 'path/to/your/html/files/*')
-                }
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Website deployed successfully to AWS S3!'
-        }
-        failure {
-            echo 'Failed to deploy website to AWS S3'
-        }
-    }
+     agent any
+     stages {
+         stage('Build') {
+             steps {
+                 sh 'echo "Hello World"'
+                 sh '''
+                     echo "Multiline shell steps works too"
+                     ls -lah
+                 '''
+             }
+         }      
+         stage('Upload to AWS') {
+              steps {
+                  withAWS(region:'us-east-1', credentials:'jenkins-user-credentials-for-aws-s3') {
+                  sh 'echo "Uploading content with AWS credentials"'
+                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'Devops-pipeline-with-jenkins-bucketS3-github/static_web', bucket:'yourDomain.com')
+                     
+                  }
+              }
+         }
+     }
 }
-
 
 
 ```
@@ -213,23 +205,55 @@ pipeline {
 
 #### Step 12: Trigger the Pipeline
 
-- Manually trigger the pipeline to observe the stages in action.
+- Make a Github commit from your local repository to upload the static web to your remote Github repository. 
+  Jenkins will detect the Github repository changes throught the configured hook on Github and will trigger the pipeline.
+
+- Go to Jenkins dashboard, find your Jenkins job and click it.
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/12.1.png)</span><span>)</span>
 
-- Verify the deployment of website files on your Aws S3 bucket.
+- Verify the execution of your Jenkins job.
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/12.2.png)</span><span>)</span>
 
-- Verify the deployment of your website on your domain (In my case veggycommon.com).
+- Check the website files have been uploaded to your Aws S3 bucket.
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/12.3.png)</span><span>)</span>
 
+- Verify the deployment of your website on your domain.
+
+<span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/12.4.png)</span><span>)</span>
 
 
-Congratulations! You've successfully set up a DevOps pipeline using AWS S3 Bucket, GitHub and Jenkins. 
+
+# Congratulations! 
+
+You've successfully set up a DevOps pipeline using AWS S3 Bucket, GitHub and Jenkins. 
 This action is automated, triggering the deployment whenever new code or commit is pushed or any changes are made.
 
 This pipeline can serve as a foundation for expanding your DevOps practices, incorporating additional tools, and automating more aspects of your development lifecycle.
+
+
+# TROUBLESHOOTING ISSUES
+
+Several factors can lead to failures when uploading files from Jenkins to an AWS S3 bucket:
+
+Incorrect Credentials: Ensure that the AWS credentials used in Jenkins have the necessary permissions to access the S3 bucket. Double-check the Access Key ID and Secret Access Key.
+
+Bucket or Object Permissions: Check if the bucket policies or object permissions might be preventing uploads. Verify that the Jenkins process has the necessary write permissions on the S3 bucket.
+
+Network Issues: Sometimes network problems, such as intermittent connectivity or high latency, can cause upload failures. Check the network settings and try uploading at different times to rule out network-related issues.
+
+Plugin Configuration: If you're using a Jenkins plugin to upload files to S3, ensure that the plugin is correctly configured with the right bucket name, region, and other necessary settings.
+
+File Size Limitations: AWS S3 has certain limitations on file sizes. Ensure that the files you're trying to upload do not exceed these limits. If needed, split larger files or adjust settings.
+
+Bucket Name Errors: Confirm that the bucket name is correct and follows AWS naming conventions. It should be unique globally and adhere to naming rules.
+
+Storage Class and Lifecycle Policies: If you've set specific storage classes or lifecycle policies for the S3 bucket, they might affect uploads. Check if these configurations are causing issues.
+
+AWS Service Outages: Sometimes, AWS services might face temporary outages or issues. Checking AWS status pages can confirm if there are ongoing problems with the S3 service.
+
+To troubleshoot, you can check Jenkins logs for error messages or enable verbose logging to get more detailed information about the upload failures. Additionally, testing the upload process manually outside of Jenkins can help isolate whether the issue is specific to Jenkins or a broader problem.
 
 ---
