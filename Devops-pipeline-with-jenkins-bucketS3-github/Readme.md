@@ -33,7 +33,8 @@ If you don't have an AWS account, sign up for the AWS Free Tier. This tier provi
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.2.png)</span><span>)</span>
 
-- Configure security groups to allow inbound traffic from Anywhere on port 8080 for Jenkins and enable SSH.
+- Configure security groups to allow inbound traffic for protocol HTTP from Anywhere on port 8080 and enable SSH.
+  Jenkins listen throught of this port.
 
 <span>![</span><span></span><span>]</span><span>(</span><span>![Screenshot](assets/2.3.png)</span><span>)</span>
 
