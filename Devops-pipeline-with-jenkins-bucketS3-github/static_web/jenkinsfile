@@ -14,7 +14,7 @@ pipeline {
               steps {
                   withAWS(region:'us-east-1', credentials:'jenkins-user-credentials-for-aws-s3') {
                   sh 'echo "Uploading content with AWS credentials"'
-                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'Devops-pipeline-with-jenkins-bucketS3-github/static_web/index.html', bucket:'veggycommons.com')
+                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'Devops-pipeline-with-jenkins-bucketS3-github/static_web/404.html', bucket:'veggycommons.com')
                      
                   }
               }
